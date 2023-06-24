@@ -12,6 +12,8 @@
 	
 	git commit -m "%date%"
 	
+	git push --set-upstream origin master
+
 	git push
 	
 	:: 3600초 대기
