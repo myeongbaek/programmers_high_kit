@@ -6,13 +6,13 @@
 
 	git remote add origin git@github.com:myeongbaek/programmers_high_kit.git
 	
+	git push --set-upstream origin master
+
 	git pull
 	
 	git add --all
 	
 	git commit -m "%date%"
-	
-	git push --set-upstream origin master
 
 	git push
 	
