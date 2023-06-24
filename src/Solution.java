@@ -1,23 +1,20 @@
-import java.util.HashMap;
+import java.util.Arrays;
 
 class Solution {
-    public int solution(int[] nums) {
-        int answer = 0;
-        int size = nums.length / 2;
-        int kind = 0;
-        HashMap<Integer, Integer> hm = new HashMap<>();
-        for (int a : nums) {
-            if (!hm.containsKey(a)) {
-                kind++;
-                hm.put(a, 0);
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.solution(new String[]{"119", "97674223", "1195524421" }));
+    }
+
+    public boolean solution(String[] phone_book) {
+        Arrays.sort(phone_book);
+
+        for (int i = 0; i < phone_book.length; i++) {
+            for (int j = i; j < phone_book.length; j++) {
+                if (phone_book[j].startsWith(phone_book[i])) return false;
             }
         }
-        if (kind > size) {
-            answer = size;
-        } else {
-            answer = kind;
-        }
-
-        return answer;
+        return true;
     }
 }

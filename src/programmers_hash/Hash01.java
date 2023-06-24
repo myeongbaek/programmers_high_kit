@@ -1,5 +1,7 @@
-import java.util.HashMap;
+package programmers_hash;
 
+import java.util.HashMap;
+// 포켓몬
 class Hash01 {
     public int solution(int[] nums) {
         int answer = 0;
