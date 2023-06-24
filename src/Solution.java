@@ -1,55 +1,57 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
-// 베스트앨범
+
 class Solution {
-    public int[] solution(String[] genres, int[] plays) {
-        int[] answer = {};
 
-        // index 별 플레이 수
-        HashMap<Integer, Integer> idxPlay = new HashMap<>();
-        // 장르 별 전체 플레이 수
-        HashMap<String, Integer> hm = new LinkedHashMap<>();
-        for (int i = 0; i < genres.length; i++) {
-            hm.put(genres[i], hm.getOrDefault(genres[i], 0) + plays[i]);
-            idxPlay.put(i, plays[i]);
-        }
-
-
-        // 전체 플레이 수 기준 내림차순으로 장르를 정렬
-        List<String> genreSorted = hm.keySet().stream()
-                .sorted((o1, o2) -> hm.get(o2).compareTo(hm.get(o1)))
-                .collect(Collectors.toList());
-
-        List<Integer> result = new ArrayList<>();
-        for (String genre : genreSorted) {
-            List<Integer> list = new ArrayList<>();
-            // { 0, 3, 4 }
-            for (int i = 0; i < genres.length; i++) {
-                if (genres[i].equals(genre)) list.add(i);
-            }
-            // 많이 재생되고 고유 번호가 낮은 노래 순서로 정렬한다.
-            list = list.stream().sorted((o1, o2) -> {
-                if (idxPlay.get(o2) > idxPlay.get(o1)) {
-                    return 1;
-                } else if (idxPlay.get(o2).equals(idxPlay.get(o1))) {
-                    return o1 - o2;
-                } else {
-                    return -1;
-                }
-            }).collect(Collectors.toList());
-            // 동적 배열에 각 장르 당 최대 2개의 노래 인덱스 저장
-            int cnt = 0;
-            for (Integer integer : list) {
-                result.add(integer);
-                if (++cnt == 2) {
-                    break;
+    public static int cnt = 0;
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.solution("17"));
+    }
+    public int solution(String numbers) {
+        int answer = 0;
+        int max = Integer.parseInt(Arrays.stream(numbers.split(""))
+                .sorted((o1, o2) -> Integer.parseInt(o2) - Integer.parseInt(o1))
+                .collect(Collectors.joining()));
+        boolean[] isNotPrime = new boolean[max + 1];
+        isNotPrime[0] = true;
+        isNotPrime[1] = true;
+        for(int i = 2; i < max + 1; i++){
+            if (!isNotPrime[i]) {
+                for(int j = 2 * i; j < max + 1; j += i){
+                    isNotPrime[j] = true;
                 }
             }
         }
-        answer = new int[result.size()];
-        for(int i = 0; i < result.size(); i++){
-            answer[i] = result.get(i);
+
+        boolean[] visited = new boolean[8];
+        int[] result = new int[8];
+        for(int n = 1; n <= numbers.length(); n++){
+            dfs(0, n, numbers, isNotPrime, visited, result);
         }
+        answer = cnt;
         return answer;
+    }
+
+    private void dfs(int level, int end, String numbers, boolean[] isNotPrime, boolean[] visited, int[] result) {
+        if (level == end){
+            int resultNumber = 0;
+            for(int i = 1; i <= end; i++){
+
+            }
+            if(!isNotPrime[resultNumber]){
+                isNotPrime[resultNumber] = true;
+                cnt++;
+            }
+            return;
+        }
+        for(int i = 0; i < numbers.length(); i++){
+            visited[i] = true;
+            result[level] = numbers.charAt(i) - '0';
+            dfs(level + 1, end, numbers, isNotPrime, visited, result);
+            visited[i] = false;
+        }
     }
 }
