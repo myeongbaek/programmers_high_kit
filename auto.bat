@@ -1,12 +1,12 @@
+cd C:\\Users\\82103\\Desktop\\취업\\알고리즘_문제풀이\\programmers_high_kit
+
+git remote remove origin
+
+git remote add origin git@github.com:myeongbaek/programmers_high_kit.git
+
+git push --set-upstream origin master
+
 :loop
-
-	cd C:\\Users\\82103\\Desktop\\취업\\알고리즘_문제풀이\\programmers_high_kit
-
-    git remote remove origin
-
-	git remote add origin git@github.com:myeongbaek/programmers_high_kit.git
-	
-	git push --set-upstream origin master
 
 	git pull
 	
