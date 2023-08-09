@@ -26,5 +26,6 @@ public class String_Sort {
         String[] array = new String[]{"232", "111", "123", "12", "35", "6"};
         Arrays.sort(array, Comparator.comparingInt(String::length));
         Arrays.stream(array).forEach(System.out::println);
+
     }
 }

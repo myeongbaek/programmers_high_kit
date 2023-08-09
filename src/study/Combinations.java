@@ -1,30 +1,28 @@
 package study;
 
-import java.util.Arrays;
-
 public class Combinations {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3};
-        boolean[] visited = new boolean[arr.length];
+    public static boolean[] visited;
 
-        System.out.println("=========백트래킹========");
-        for(int r = 1; r <= arr.length; r++){
-            System.out.println(arr.length + "개 중에서 " + r + "개 뽑기");
-            comb(arr, visited, 0, r);
-        }
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6};
+        int r = 3;
+
+        visited = new boolean[arr.length];
+        backtracking(arr, 0, 0, r);
     }
 
-    private static void comb(int[] arr, boolean[] visited, int start, int r) {
-        if(r == 0){
-            int total = 1;
-            for(int i = 0; i < visited.length; i++){
-                if(visited[i]) total *= arr[i];
+    public static void backtracking(int[] arr, int start, int level, int end) {
+        if (level == end) {
+            for (int i = 0; i < arr.length; i++) {
+                if (visited[i]) System.out.print(i + " ");
             }
-            System.out.println(Arrays.toString(arr) + " " + Arrays.toString(visited) + " total : " + total);
-        } else {
-            for(int i = start; i < arr.length; i++){
+            System.out.println();
+            return;
+        }
+        for (int i = start; i < arr.length; i++) {
+            if (!visited[i]) {
                 visited[i] = true;
-                comb(arr, visited, i + 1, r - 1);
+                backtracking(arr, i + 1, level + 1, end);
                 visited[i] = false;
             }
         }
